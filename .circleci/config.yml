@@ -1,0 +1,55 @@
+version: 2.1
+jobs:
+  build-gcc7:
+    docker:
+        - image: gcc:7
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
+      - run:
+          name: Test
+          command: ctest --output-on-failure
+  build-gcc8:
+    docker:
+        - image: gcc:8
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
+      - run:
+          name: Test
+          command: ctest --output-on-failure
+  build-gcc9:
+    docker:
+        - image: gcc:9
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
+      - run:
+          name: Test
+          command: ctest --output-on-failure
+  build-clang8:
+    docker:
+        - image: clangbuiltlinux/debian:llvm8-latest
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. && make
+      - run:
+          name: Test
+          command: ctest --output-on-failure
+
+workflows:
+  version: 2
+  build-and-test:
+      jobs:
+          - build-gcc7
+          - build-gcc8
+          - build-gcc9
+          - build-clang8
