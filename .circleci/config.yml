@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: apt-get update && apt-get install -yy cmake
+      - run:
           name: Build
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
       - run:
@@ -16,6 +19,9 @@ jobs:
         - image: gcc:8
     steps:
       - checkout
+      - run:
+          name: Install dependencies
+          command: apt-get update && apt-get install -yy cmake
       - run:
           name: Build
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
@@ -28,6 +34,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: apt-get update && apt-get install -yy cmake
+      - run:
           name: Build
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
       - run:
@@ -38,6 +47,9 @@ jobs:
         - image: clangbuiltlinux/debian:llvm8-latest
     steps:
       - checkout
+      - run:
+          name: Install dependencies
+          command: apt-get update && apt-get install -yy cmake
       - run:
           name: Build
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. && make
