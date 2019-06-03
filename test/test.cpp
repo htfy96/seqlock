@@ -27,13 +27,13 @@ void print_every(int i, int every_cnt, const char* msg) {
 int main() {
   seqlock::SeqLock<TestData> lk{to_write_2};
   thread w1([&]() {
-    for (int i = 0; i < 100000000; ++i) {
+    for (int i = 0; i < 10000000; ++i) {
       lk.write(to_write_1);
-      print_every(i, 10000000, "w1");
+      print_every(i, 1000000, "w1");
     }
   });
   thread w2([&]() {
-    for (int i = 0; i < 90000000; ++i) {
+    for (int i = 0; i < 9000000; ++i) {
       auto writer = lk.get_writer();
       double prev_x = writer.read_member(&TestData::x);
       if (prev_x != to_write_1.x && prev_x != to_write_2.x)
@@ -45,25 +45,25 @@ int main() {
       double new_x = writer.read_member(&TestData::x);
       if (new_x != to_write_2.x)
         abort();
-      print_every(i, 10000000, "w2");
+      print_every(i, 1000000, "w2");
     }
   });
   thread r1([&]() {
-    for (int i = 0; i < 200000000; ++i) {
+    for (int i = 0; i < 20000000; ++i) {
       TestData r = lk.load();
       if (r != to_write_1 && r != to_write_2)
         abort();
-      print_every(i, 10000000, "r2");
+      print_every(i, 1000000, "r2");
     }
   });
   thread r2([&]() {
-    for (int i = 0; i < 170000000; ++i) {
+    for (int i = 0; i < 17000000; ++i) {
       auto r = lk.load_members(&TestData::x, &TestData::w);
       auto to_write_1_tp = std::make_tuple(to_write_1.x, to_write_1.w);
       auto to_write_2_tp = std::make_tuple(to_write_2.x, to_write_2.w);
       if (r != to_write_1_tp && r != to_write_2_tp)
         abort();
-      print_every(i, 10000000, "r2");
+      print_every(i, 1000000, "r2");
     }
   });
   w1.join();
