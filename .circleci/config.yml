@@ -13,7 +13,7 @@ jobs:
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
       - run:
           name: Test
-          command: ctest --output-on-failure
+          command: cd build && ctest --output-on-failure
   build-gcc8:
     docker:
         - image: gcc:8
@@ -27,7 +27,7 @@ jobs:
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
       - run:
           name: Test
-          command: ctest --output-on-failure
+          command: cd build && ctest --output-on-failure
   build-gcc9:
     docker:
         - image: gcc:9
@@ -41,7 +41,7 @@ jobs:
           command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make
       - run:
           name: Test
-          command: ctest --output-on-failure
+          command: cd build && ctest --output-on-failure
   build-clang8:
     docker:
         - image: clangbuiltlinux/debian:llvm8-latest
@@ -52,10 +52,10 @@ jobs:
           command: apt-get update && apt-get install -yy cmake
       - run:
           name: Build
-          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. && make
+          command: mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=clang-8 -DCMAKE_CXX_COMPILER=clang++-8 .. && make
       - run:
           name: Test
-          command: ctest --output-on-failure
+          command: cd build && ctest --output-on-failure
 
 workflows:
   version: 2
