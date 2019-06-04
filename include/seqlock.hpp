@@ -19,7 +19,9 @@
 #endif
 
 #ifndef SEQLOCK_NO_BUILTIN_EXPECT
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define SEQLOCK_LIKELY(x) __builtin_expect((x), 1)
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define SEQLOCK_UNLIKELY(x) __builtin_expect((x), 0)
 #else
 #define SEQLOCK_LIKELY(x) (x)
