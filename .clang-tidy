@@ -1,5 +1,5 @@
 ---
-Checks:          'bugprone-*, modernize-*, readability-*, performance-*, -readability-braces-around-statements, -readability-implicit-bool-conversion, -readability-magic-numbers, -readability-isolate-declaration'
+Checks:          'bugprone-*, modernize-*, readability-*, performance-*, cppcoreguidelines-*, clang-analyzer-*, portability-*, -readability-braces-around-statements, -readability-implicit-bool-conversion, -readability-magic-numbers, -readability-isolate-declaration, -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-*'
 WarningsAsErrors: '*'
 AnalyzeTemporaryDtors: false
 CheckOptions:
