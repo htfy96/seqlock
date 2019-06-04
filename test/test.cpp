@@ -7,7 +7,8 @@ struct TestData {
   char c;
   int w;
   double x;
-  int arr[2];  // NOLINT(modernize-avoid-c-arrays,cppcoreguidelines-avoid-c-arrays)
+  int arr
+      [2];  // NOLINT(modernize-avoid-c-arrays,cppcoreguidelines-avoid-c-arrays)
   friend bool operator==(const TestData& d1, const TestData& d2) {
     return d1.c == d2.c && d1.w == d2.w && d1.x == d2.x &&
            d1.arr[0] == d2.arr[0] && d1.arr[1] == d2.arr[1];
