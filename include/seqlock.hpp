@@ -183,7 +183,7 @@ class SeqLock {
       std::swap(parent, other.parent);
       seq1 = other.seq1;
     }
-    Writer&& operator=(Writer&& other) noexcept {
+    Writer& operator=(Writer&& other) noexcept {
       parent = nullptr;
       std::swap(parent, other.parent);
       seq1 = other.seq1;
